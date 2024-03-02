@@ -47,4 +47,11 @@ class ConversorDeNumeroRomanoTest extends \PHPUnit\Framework\TestCase{
         
         $this->assertEquals(9, $numero);
     }
+    
+    public function testDeveEntenderOSimboloXXIV() {
+        $conversor = new ConversorDeNumeroRomano();
+        $numero = $conversor->converter("XXIV");
+        
+        $this->assertEquals(24, $numero);
+    }
 }
