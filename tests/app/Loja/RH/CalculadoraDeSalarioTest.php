@@ -16,8 +16,6 @@ class CalculadoraDeSalarioTest extends \PHPUnit\Framework\TestCase
         $this->calculadora = new CalculadoraDeSalario();
     }
     
-    
-    
     public function testCalculoSalarioDesenvolvedoresComSalarioAbaixoDoLimite() 
     {
         $desenvolvedor = new Funcionario("Andre", 1500.0, TabelaCargos::DESENVOLVEDOR);
@@ -27,4 +25,21 @@ class CalculadoraDeSalarioTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(1500.0 * 0.9, $salario);
     }
     
+    public function testCalculoSalarioDesenvolvedoresComSalarioAcimaDoLimite() 
+    {
+        $desenvolvedor = new Funcionario("Andre", 4000, TabelaCargos::DESENVOLVEDOR);
+        
+        $salario = $this->calculadora->calcularSalario($desenvolvedor);
+        
+        $this->assertEquals(4000 * 0.8, $salario);
+    }
+    
+    public function testDeveCalcularSalarioParaDBAsComSalarioAbaixoDoLimite() 
+    {
+        $dba = new Funcionario("Andre", 500.0, TabelaCargos::DBA);
+        
+        $salario = $this->calculadora->calcularSalario($dba);
+        
+        $this->assertEquals(500 * 0.85, $salario);
+    }
 }
