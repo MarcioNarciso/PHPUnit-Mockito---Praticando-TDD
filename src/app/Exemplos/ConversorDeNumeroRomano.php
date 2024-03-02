@@ -34,11 +34,8 @@ class ConversorDeNumeroRomano {
             
             // Se o valor do símbolo atual for menor que o do símbolo anterior,
             // o valor é subtraído do montante. Caso contrário, é somado.
-            if ($numCorrente < $numAnterior) {
-                $acumulador -= $numCorrente;
-            } else {
-                $acumulador += $numCorrente;
-            }
+            $multiplicador = $numCorrente < $numAnterior ? -1 : 1;
+            $acumulador += ($multiplicador * $numCorrente);
             
             // Atualiza o valor do símbolo anterior para a próx. iteração
             $numAnterior = $numCorrente;
