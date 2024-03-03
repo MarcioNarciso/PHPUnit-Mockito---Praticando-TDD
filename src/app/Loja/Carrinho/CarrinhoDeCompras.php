@@ -22,17 +22,17 @@ class CarrinhoDeCompras {
         return $this->produtos;
     }
     
-    public function maiorValor() 
-    {
-        if (count($this->getItens()) === 0) {
+    public function maiorValor() {
+        if (count($this->getProdutos()) === 0) {
             return 0;
         }
         
-        $maiorValor = $this->getProdutos()[0]->getValor();
+        $primeiroElemento = $this->getProdutos()->offsetGet(0);
+        $maiorValor = $primeiroElemento->getValorTotal();
         
-        foreach ($this->getProdutos as $produto) {
-            if ($maiorValor < $produto->getValor()) {
-                $maiorValor = $produto->getValor();
+        foreach($this->getProdutos() as $produto) {
+            if ($maiorValor < $produto->getValorTotal()) {
+                $maiorValor = $produto->getValorTotal();
             }
         }
         
