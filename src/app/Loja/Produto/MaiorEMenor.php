@@ -14,15 +14,16 @@ class MaiorEMenor {
     private $menor;
     private $maior;
     
-    public function encontrar(CarrinhoDeCompras $carrinho) {
+    public function encontrar(CarrinhoDeCompras $carrinho) 
+    {
         foreach ($carrinho->getProdutos() as $produto) {
             if (empty($this->menor)
-                    || $produto->getValor() < $this->menor->getValor()) {
+                    || $produto->getValorUnitario() < $this->menor->getValorUnitario()) {
                 $this->menor = $produto;
             }
             
             if (empty($this->maior)
-                    || $produto->getValor() > $this->maior->getValor()) {
+                    || $produto->getValorUnitario() > $this->maior->getValorUnitario()) {
                 $this->maior = $produto;
             }
         }

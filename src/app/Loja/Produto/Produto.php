@@ -10,18 +10,28 @@ namespace App\Loja\Produto;
 class Produto {
     
     private $nome;
-    private $valor;
+    private $valorUnitario;
+    private $quantidade;
     
-    public function __construct($nome, $valor) {
+    public function __construct($nome, $valorUnitario, $quantidade = 1) {
         $this->nome = $nome;
-        $this->valor = $valor;
+        $this->valorUnitario = $valorUnitario;
+        $this->quantidade = $quantidade;
     }
     
-    function getNome() {
+    public function getNome() {
         return $this->nome;
     }
     
-    function getValor() {
-        return $this->valor;
+    public function getValorUnitario() {
+        return $this->valorUnitario;
+    }
+
+    public function getQuantidade() {
+        return $this->quantidade;
+    }
+
+    public function getValorTotal() {
+        return $this->valorUnitario * $this->quantidade;
     }
 }
