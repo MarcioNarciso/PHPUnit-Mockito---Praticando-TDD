@@ -3,6 +3,7 @@
 namespace App\Loja\Carrinho;
 
 use App\Loja\Produto\Produto;
+use App\Loja\Test\Builder\CarrinhoDeComprasBuilder;
 
 /**
  * Description of CarrinhoDeComprasTest
@@ -11,36 +12,41 @@ use App\Loja\Produto\Produto;
  */
 class CarrinhoDeComprasTest extends \PHPUnit\Framework\TestCase {
 
-    private CarrinhoDeCompras $carrinho;
+    private CarrinhoDeComprasBuilder $carrinhoBuilder;
     
     protected function setUp() : void
     {
-        $this->carrinho = new CarrinhoDeCompras();
+        $this->carrinhoBuilder = new CarrinhoDeComprasBuilder();
+        parent::setUp();
     }
 
     public function testDeveRetornarZeroSeCarrinhoVazio() 
     {
-        $valor = $this->carrinho->maiorValor();
+        $carrinho = $this->carrinhoBuilder->construir();
+        
+        $valor = $carrinho->maiorValor();
         
         $this->assertEquals(0, $valor);
     }
     
     public function testDeveRetornarValorDoItemSeCarrinhoCom1Elemento() 
     {
-        $this->carrinho->adicionar(new Produto("Geladeira", 900, 1));
-        
-        $valor = $this->carrinho->maiorValor();
+        $carrinho = $this->carrinhoBuilder
+                        ->adicionarItens(900)
+                        ->construir();
+
+        $valor = $carrinho->maiorValor();
         
         $this->assertEquals(900, $valor);
     }
     
     public function testDeveRetornarMaiorValorSeCarrinhoComMuitosElementos() 
     {
-        $this->carrinho->adicionar(new Produto("Geladeira", 900, 1));
-        $this->carrinho->adicionar(new Produto("Fogão", 1500, 1));
-        $this->carrinho->adicionar(new Produto("Máquina de Lavar", 750, 1));
+        $carrinho = $this->carrinhoBuilder
+                        ->adicionarItens(900, 1500, 750)
+                        ->construir();
         
-        $valor = $this->carrinho->maiorValor();
+        $valor = $carrinho->maiorValor();
         
         $this->assertEquals(1500, $valor);
     }
