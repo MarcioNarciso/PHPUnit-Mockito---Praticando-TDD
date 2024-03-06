@@ -50,4 +50,35 @@ class CarrinhoDeComprasTest extends \PHPUnit\Framework\TestCase {
         
         $this->assertEquals(1500, $valor);
     }
+    
+    public function testDeveAdicionarItens() 
+    {
+        $carrinho = $this->carrinhoBuilder->construir();
+        
+        // garante que o carrinho está vazio
+        $this->assertEmpty($carrinho->getProdutos());
+        
+        $produto = new Produto("Geladeira", 900, 1);
+        
+        $carrinho->adicionar($produto);
+        
+        $esperado = count($carrinho->getProdutos());
+        
+        $this->assertEquals(1, $esperado);
+        $this->assertEquals($produto, $carrinho->getProdutos()[0]);
+    }
+    
+    public function testListaDeProdutos() 
+    {
+        $carrinho = $this->carrinhoBuilder
+                        ->adicionarItens(200, 100)
+                        ->construir();
+        
+        $this->assertEquals(2, count($carrinho->getProdutos()));
+        $this->assertEquals(200.0, $carrinho->getProdutos()[0]->getValorUnitario());
+        $this->assertEquals(100.0, $carrinho->getProdutos()[1]->getValorUnitario());
+        
+        // adicionar asserts nos outros atributos, como quantidade, etc.
+        // e nos objetos dessa lista
+    }
 }
