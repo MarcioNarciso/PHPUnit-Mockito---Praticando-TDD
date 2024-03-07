@@ -7,14 +7,17 @@ namespace App\Loja\RH;
  *
  * @author marcio
  */
-class DezOuVintePorcento implements RegraDeCalculo{
-
-    public function calcular(Funcionario $funcionario) {
-        if ($funcionario->getSalario() > 3000) {
-            return $funcionario->getSalario() * 0.8;
-        }
-
-        return $funcionario->getSalario() * 0.9;
-    }
+class DezOuVintePorcento extends RegraDeCalculo{
     
+    protected function limite() {
+        return 3000;
+    }
+
+    protected function porcentagemAcimaDoLimite() {
+        return 0.8;
+    }
+
+    protected function porcentagemBase() {
+        return 0.9;
+    }
 }
