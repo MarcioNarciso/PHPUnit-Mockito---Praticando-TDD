@@ -7,9 +7,9 @@ namespace App\Loja\FluxoDeCaixa;
  *
  * @author marcio
  */
-class SAP {
+class SAP implements AcaoAposGerarNotaInterface{
 
-    public function enviar(NotaFiscal $nf) {
+    public function executar(NotaFiscal $nf) {
         // Envia a NF para o SAP
     }
 }

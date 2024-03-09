@@ -9,26 +9,31 @@ namespace App\Loja\FluxoDeCaixa;
  */
 class GeradorDeNotaFiscal {
     
-    private NFDao $dao;
-    private SAP $sap;
+    /**
+     * Array de objetos que implementam AcaoAposGerarNotaInterface.
+     * @var AcaoAposGerarNotaInterface[]
+     */
+    private array $acoes;
     
-    public function __construct(NFdao $dao, SAP $sap) {
-        $this->dao = $dao;
-        $this->sap = $sap;
+    /**
+     * Recebe um array de objetos que implementam AcaoAposGerarNotaInterface.
+     * @param AcaoAposGerarNotaInterface[] $acoes
+     */
+    public function __construct(array $acoes = []) {
+        $this->acoes = $acoes;
     }
 
-        public function gerar(Pedido $pedido) 
+    public function gerar(Pedido $pedido) 
     {
         $nf = new NotaFiscal($pedido->getCliente(), 
                              $pedido->getValorTotal() * 0.94, 
                              new \DateTime());
         
-        if ($this->dao->persistir($nf) 
-                && $this->sap->enviar($nf)) {
-            return $nf;
+        foreach($this->acoes as $acao) {
+            $acao->executar($nf);
         }
         
-        return null;
+        return $nf;
     }
     
 }

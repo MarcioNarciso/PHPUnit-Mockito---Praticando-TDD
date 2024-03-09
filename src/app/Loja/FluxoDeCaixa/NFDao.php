@@ -7,9 +7,9 @@ namespace App\Loja\FluxoDeCaixa;
  *
  * @author marcio
  */
-class NFDao {
+class NFDao implements AcaoAposGerarNotaInterface{
 
-    public function persistir(NotaFiscal $nf) {
+    public function executar(NotaFiscal $nf) {
         // persiste a NF
     }
     
