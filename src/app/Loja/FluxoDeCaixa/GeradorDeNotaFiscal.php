@@ -2,6 +2,9 @@
 
 namespace App\Loja\FluxoDeCaixa;
 
+use App\Exemplos\RelogioInterface;
+use DateTime;
+
 /**
  * Description of GeradorDeNotaFiscal
  *
@@ -14,20 +17,22 @@ class GeradorDeNotaFiscal {
      * @var AcaoAposGerarNotaInterface[]
      */
     private array $acoes;
+    private RelogioInterface $relogio;
     
     /**
      * Recebe um array de objetos que implementam AcaoAposGerarNotaInterface.
      * @param AcaoAposGerarNotaInterface[] $acoes
      */
-    public function __construct(array $acoes = []) {
+    public function __construct(array $acoes = [], RelogioInterface $relogio) {
         $this->acoes = $acoes;
+        $this->relogio = $relogio;
     }
 
     public function gerar(Pedido $pedido) 
     {
         $nf = new NotaFiscal($pedido->getCliente(), 
                              $pedido->getValorTotal() * 0.94, 
-                             new \DateTime());
+                             $this->relogio->hoje());
         
         foreach($this->acoes as $acao) {
             $acao->executar($nf);
