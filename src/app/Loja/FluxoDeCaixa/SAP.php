@@ -9,7 +9,7 @@ namespace App\Loja\FluxoDeCaixa;
  */
 class SAP {
 
-    public function envia(NotaFiscal $nf) {
+    public function enviar(NotaFiscal $nf) {
         // Envia a NF para o SAP
     }
 }
