@@ -22,5 +22,5 @@ abstract class RegraDeCalculo {
     
     protected abstract function porcentagemAcimaDoLimite();
     
-    protected abstract function  porcentagemBase();
+    protected abstract function porcentagemBase();
 }
