@@ -34,4 +34,8 @@ class Produto {
     public function getValorTotal() {
         return $this->valorUnitario * $this->quantidade;
     }
+    
+    public function inativar() {
+        $this->quantidade = 0;
+    }
 }
